@@ -1,0 +1,6 @@
+page content: 
+
+<div class="calendar" data-color="blue" opn="demo" style="height:20em;"></div>
+
+
+Add this: <div style="margin:23px 30px 0 5px;">Dick's Wings &amp; Grille Northside</div> (truncate to 50 on desktop) hide below 480

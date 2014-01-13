@@ -1,0 +1,2 @@
+<?php global $lang; ?>
+<li><a href="index.php?action=listCalendar"<?php echo ($_GET['action'] == 'listCalendar') ? ' style="background-color:#43A1DA;color:white;border:1px solid #43A1DA;"' : ''; ?>><?php echo $lang['calendar']; ?></a></li>
