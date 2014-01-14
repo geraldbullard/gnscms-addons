@@ -3,7 +3,7 @@
  /**
   * Language: English
   */
-  
-  /* Calendar */
-  $lang['calendar'] = 'Calendar';
+
+  /* Events */
+  $lang['events'] = 'Events';
 ?>

@@ -13,7 +13,7 @@
       </div>
       <div id="rightContent" class="box span9">
         <div class="box-header well">
-          <h2><i class="icon-chevron-right" onclick="toggleLeftNav();" style="display:none; cursor:pointer;" title="Show Navigation"></i><i class="icon-th"></i> Manage Calendar Events</h2>
+          <h2><i class="icon-chevron-right" onclick="toggleLeftNav();" style="display:none; cursor:pointer;" title="Show Navigation"></i><i class="icon-th"></i> Manage Events</h2>
           <div class="box-icon">
             <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
           </div>
@@ -35,14 +35,14 @@
             <?php } ?>
           </div>
           <?php } ?>
-          <ul class="nav nav-tabs" id="listCalendarTab">
-            <li class="active"><a href="#currentCalendarTab"><i class="icon icon-color icon-book-empty"></i> Current Events</a></li>
-            <li><a href="#newCalendarTab"><i class="icon icon-color icon-plus"></i> Add New Event</a></li>
+          <ul class="nav nav-tabs" id="listEventsTab">
+            <li class="active"><a href="#currentEventsTab"><i class="icon icon-color icon-book-empty"></i> Current Events</a></li>
+            <li><a href="#newEventsTab"><i class="icon icon-color icon-plus"></i> Add New Event</a></li>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="currentCalendarTab">
+            <div class="tab-pane active" id="currentEventsTab">
             </div>
-            <div class="tab-pane" id="newCalendarTab">
+            <div class="tab-pane" id="newEventsTab">
               <form action="index.php?action=newEvent" method="post" name="newEvent" id="newEvent">
               </form>
             </div>
