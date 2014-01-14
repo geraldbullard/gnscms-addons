@@ -1,0 +1,19 @@
+page content: 
+
+<div class="calendar" data-color="blue" opn="demo" style="height:20em;"></div>
+
+
+Add this: <div style="margin:23px 30px 0 5px;">Dick's Wings &amp; Grille Northside</div> (truncate to 50 on desktop) hide below 480
+
+CREATE TABLE IF NOT EXISTS gnsCMS_event (id smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+                                         title varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                                         description text COLLATE utf8_unicode_ci NOT NULL,
+                                         eventDate date NOT NULL DEFAULT '0000-00-00',
+                                         startTime varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+                                         endTime varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+                                         location varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                                         map mediumtext COLLATE utf8_unicode_ci NOT NULL,
+                                         status tinyint(1) unsigned NOT NULL DEFAULT '1',
+                                         lastModified date NOT NULL DEFAULT '0000-00-00',
+                                         PRIMARY KEY (id, title)) 
+                                         ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
