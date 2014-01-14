@@ -12,10 +12,19 @@
       }
     }
     include_once('inc/lang/' . $_SESSION['lang'] . '/' . $page_file);
-    if ($_SESSION['access']->listEvent > 0) {
+    //if ($_SESSION['access']->listEvent > 0) {
+      $results = array();
+      $data = Event::getAll();
+      $results['settings'] = $data['results'];
+      $results['totalEvents'] = $data['totalRows'];
+      $results['pageTitle'] = "Events Calendar"; // $lang['events_page_title'];
+      if ( isset( $_GET['success'] ) ) {
+        if ( $_GET['success'] == "eventCreated" ) $results['successMessage'] = "Your new event has been created successully.";
+        if ( $_GET['success'] == "changesSaved" ) $results['successMessage'] = "Your event changes have been saved.";
+      }
       require( "inc/layout/listEvent.php" );
-    } else {
-      require( "inc/layout/noAccess.php" );
-    }
+    //} else {
+    //  require( "inc/layout/noAccess.php" );
+    //}
   }
 ?>

@@ -113,7 +113,7 @@ class Event {
   * @param string Optional column by which to order the content (default="date DESC")
   * @return Array|false A two-element array : results => array, a list of Event objects; totalRows => Total number of Event items
   */  
-  public static function getFullList( $numRows = 1000000, $order = "sort DESC" ) {
+  public static function getAll( $numRows = 1000000, $order = "eventDate DESC" ) {
     
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -133,11 +133,11 @@ class Event {
     // Now get the total number of content objects that matched the criteria
     foreach ($list as $item) {
       $events[] = $item->id;
-    }     
+    }
     
     $conn = null;
     
-    return ( array ( "results" => $list, "totalEvents" => count($events) ) );
+    return ( array ( "results" => $list, "totalRows" => count($events) ) );
   } 
 } 
 ?>
