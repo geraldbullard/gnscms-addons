@@ -12,7 +12,7 @@
       }
     }
     include_once('inc/lang/' . $_SESSION['lang'] . '/' . $page_file);
-    //if ($_SESSION['access']->listEvent > 0) {
+    if ($_SESSION['access']->events > 0) {
       $results = array();
       $data = Event::getAll();
       $results['settings'] = $data['results'];
@@ -23,8 +23,8 @@
         if ( $_GET['success'] == "changesSaved" ) $results['successMessage'] = "Your event changes have been saved.";
       }
       require( "inc/layout/listEvent.php" );
-    //} else {
-    //  require( "inc/layout/noAccess.php" );
-    //}
+    } else {
+      require( "inc/layout/noAccess.php" );
+    }
   }
 ?>
