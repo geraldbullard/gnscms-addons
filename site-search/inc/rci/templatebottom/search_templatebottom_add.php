@@ -11,6 +11,9 @@
   <input name="submit" type="hidden" value="submit" />
 </form>
 -->
+<?php
+  if (strpos($_SERVER['REQUEST_URI'], 'search') > 0) {
+?>
   <script>
   $(document).ready(function() {
     var params = [];
@@ -69,3 +72,6 @@
     return decodeURIComponent((str+'').replace(/\+/g, '%20'));
   }
   </script>
+<?php
+  }
+?>

@@ -20,40 +20,41 @@
 </div>
 -->
 <?php
-  $events = array("event" => 
-                   array("title" => 'Dicks Wings',
-                         "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
-                         "date" => '20140110',
-                         "start" => '9:00',
-                         "end" => '1:30',
-                         "loc" => 'Alta Rd Jacksonville, FL 32226',
-                         "map" => 'http://goo.gl/maps/VIrnD'
-                         ), 
-                   array("title" => 'Dicks Wings',
-                         "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
-                         "date" => '20140111',
-                         "start" => '9:00',
-                         "end" => '1:30',
-                         "loc" => 'Alta Rd Jacksonville, FL 32226',
-                         "map" => 'http://goo.gl/maps/VIrnD'
-                         ), 
-                   array("title" => 'Dicks Wings',
-                         "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
-                         "date" => '20140207',
-                         "start" => '9:00',
-                         "end" => '1:30',
-                         "loc" => 'Alta Rd Jacksonville, FL 32226',
-                         "map" => 'http://goo.gl/maps/VIrnD'
-                         ), 
-                   array("title" => 'Dicks Wings',
-                         "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
-                         "date" => '20140208',
-                         "start" => '9:00',
-                         "end" => '1:30',
-                         "loc" => 'Alta Rd Jacksonville, FL 32226',
-                         "map" => 'http://goo.gl/maps/VIrnD'
-                         )
-                  );
+  if (strpos($_SERVER['REQUEST_URI'], 'event') > 0) {
+    $events = array("event" => 
+                     array("title" => 'Dicks Wings',
+                           "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
+                           "date" => '20140110',
+                           "start" => '9:00',
+                           "end" => '1:30',
+                           "loc" => 'Alta Rd Jacksonville, FL 32226',
+                           "map" => 'http://goo.gl/maps/VIrnD'
+                           ), 
+                     array("title" => 'Dicks Wings',
+                           "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
+                           "date" => '20140111',
+                           "start" => '9:00',
+                           "end" => '1:30',
+                           "loc" => 'Alta Rd Jacksonville, FL 32226',
+                           "map" => 'http://goo.gl/maps/VIrnD'
+                           ), 
+                     array("title" => 'Dicks Wings',
+                           "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
+                           "date" => '20140207',
+                           "start" => '9:00',
+                           "end" => '1:30',
+                           "loc" => 'Alta Rd Jacksonville, FL 32226',
+                           "map" => 'http://goo.gl/maps/VIrnD'
+                           ), 
+                     array("title" => 'Dicks Wings',
+                           "desc" => 'Dicks Wings & Grille on the north side of Jax!!!',
+                           "date" => '20140208',
+                           "start" => '9:00',
+                           "end" => '1:30',
+                           "loc" => 'Alta Rd Jacksonville, FL 32226',
+                           "map" => 'http://goo.gl/maps/VIrnD'
+                           )
+                    );
 ?>
   <script src="inc/js/calendar.js"></script>
   <script>
@@ -87,3 +88,6 @@
                             '</div>');
     }
   </script>
+<?php
+  }
+?>
