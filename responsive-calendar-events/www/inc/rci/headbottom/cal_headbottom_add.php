@@ -1,11 +1,10 @@
 <?php
-  if (strpos($_SERVER['REQUEST_URI'], 'calendar') > 0) {
+  if (strpos($_SERVER['REQUEST_URI'], 'event') > 0) {
 ?>
 <style>
 .calendar {
   color: white;
   font-weight: 300;
-  margin-top: 75px;
 }
 
 .calendar * {
@@ -331,8 +330,6 @@
 }
 
 body,html {
-  margin: 0;
-  padding: 0;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
 }

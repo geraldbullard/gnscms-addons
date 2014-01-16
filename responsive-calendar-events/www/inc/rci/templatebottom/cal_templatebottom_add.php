@@ -1,3 +1,24 @@
+<!-- use the following for the events calendar page in the cms (bootstrap3)
+<div class="container">
+  <div class="row">  
+    <div class="col-lg-12">
+      <h1 class="page-header">Events Calendar</h1>
+      <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Events Calendar</li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="calendar" data-color="blue" opn="demo" style="height:28em;"> </div>
+    </div>
+    <div class="col-lg-12">
+      <p class="pull-right small text-muted">Original Calendar by: <a href="http://www.jqueryscript.net/demo/Easy-jQuery-Based-Flat-Calendar-Widget-Flat-Calendar/" target="_blank">Eric Wennerberg</a></p>
+    </div>
+  </div>
+</div>
+-->
 <?php
   $events = array("event" => 
                    array("title" => 'Dicks Wings',

@@ -1,4 +1,4 @@
-<!--
+<!-- use the following form with bootstrap3 including font-awesome
 <form action="search.php" id="search_form_footer" method="GET">
   <div class="input-group">
     <input class="form-control" name="search" type="text" />
