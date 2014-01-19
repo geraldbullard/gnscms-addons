@@ -113,7 +113,7 @@ class Event {
   * @param string Optional column by which to order the content (default="date DESC")
   * @return Array|false A two-element array : results => array, a list of Event objects; totalRows => Total number of Event items
   */  
-  public static function getAll( $numRows = 1000000, $order = "eventDate DESC" ) {
+  public static function getAll( $numRows = 1000000, $order = "eventDate ASC" ) {
     
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -138,6 +138,52 @@ class Event {
     $conn = null;
     
     return ( array ( "results" => $list, "totalRows" => count($events) ) );
+  }
+  
+  
+  /**
+  * Updates the current Event status in the database.
+  * 
+  */  
+  public function updateStatus() {
+    
+    // Does the Event object have an ID?
+    if ( is_null( $this->id ) ) trigger_error ( "Event::updateStatus(): Attempt to update the status of a Event object that does not have its ID property set.", E_USER_ERROR );
+   
+    // Update the Event
+    $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    $sql = "UPDATE " . DB_PREFIX . "events SET status = :status WHERE id = :id";
+    
+    $st = $conn->prepare ( $sql );
+    $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
+    $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
+    $st->execute();
+    
+    $conn = null;
+    
+  }
+ 
+ 
+  /**
+  * Deletes the current Event object from the database.
+  * 
+  */  
+  public function delete() {
+ 
+    // Does the Event object have an ID?
+    if ( is_null( $this->id ) ) trigger_error ( "Event::delete(): Attempt to delete a Event object that does not have its ID property set.", E_USER_ERROR );
+ 
+    // Delete the Event
+    $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    $st = $conn->prepare ( "DELETE FROM " . DB_PREFIX . "events WHERE id = :id LIMIT 1" );
+    
+    $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
+    $st->execute();
+    
+    $conn = null;
+    
   } 
 } 
 ?>

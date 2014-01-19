@@ -9,6 +9,31 @@
   
   require_once('inc/class/Event.class.php');
   
+  // set the action from the url
+  $action = (isset($_GET['action']) && $_GET['action'] != '') ? $_GET['action'] : '';
+  
+  // enable the event
+  if ($action == 'enableEvent') {
+    $event = new Event;
+    $event->storeFormValues($_GET);
+    $event->updateStatus(); 
+  }
+  
+  // disable the event
+  if ($action == 'disableEvent') {
+    $event = new Event;
+    $event->storeFormValues($_GET);
+    $event->updateStatus(); 
+  }
+  
+  // delete the event
+  if ($action == 'deleteEvent') {
+    $event = new Event;
+    $event->storeFormValues($_GET);
+    $event->delete(); 
+  }
+  
+  // if $_POST is detected
   if (isset($_POST['events'])) {
     $_SESSION['postevents'] = ($_POST['events'] != '') ? $_POST['events'] : 0;
   }

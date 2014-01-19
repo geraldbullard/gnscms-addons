@@ -15,7 +15,7 @@
     if ($_SESSION['access']->events > 0) {
       $results = array();
       $data = Event::getAll();
-      $results['settings'] = $data['results'];
+      $results['events'] = $data['results'];
       $results['totalEvents'] = $data['totalRows'];
       $results['pageTitle'] = "Events Calendar"; // $lang['events_page_title'];
       if ( isset( $_GET['success'] ) ) {
