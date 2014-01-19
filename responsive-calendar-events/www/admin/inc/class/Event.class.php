@@ -63,7 +63,7 @@ class Event {
   public function __construct( $data=array() ) {
     
     if ( isset( $data['id'] ) ) $this->id = (int) $data['id'];
-    if ( isset( $data['title'] ) ) $this->title = preg_replace ( "/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['title'] );
+    if ( isset( $data['title'] ) ) $this->title = $data['title'];
     if ( isset( $data['description'] ) ) $this->description = $data['description'];
     if ( isset( $data['eventDate'] ) ) $this->eventDate = (int) $data['eventDate'];
     if ( isset( $data['startTime'] ) ) $this->startTime = $data['startTime'];
@@ -85,7 +85,7 @@ class Event {
     
     // Store all the parameters
     $this->__construct( $params );
-
+    
     // Parse and store the publication date
     if ( isset($params['eventDate']) ) {
       $eventDate = explode ( '-', $params['eventDate'] );
@@ -110,7 +110,7 @@ class Event {
   * Returns all Event objects in the DB
   *
   * @param int Optional The number of rows to return (default=all)
-  * @param string Optional column by which to order the content (default="date DESC")
+  * @param string Optional column by which to order the content (default="eventDate DESC")
   * @return Array|false A two-element array : results => array, a list of Event objects; totalRows => Total number of Event items
   */  
   public static function getAll( $numRows = 1000000, $order = "eventDate ASC" ) {
@@ -130,7 +130,7 @@ class Event {
       $list[] = $event;
     }
  
-    // Now get the total number of content objects that matched the criteria
+    // Now get the total number of event objects that matched the criteria
     foreach ($list as $item) {
       $events[] = $item->id;
     }
@@ -138,6 +138,39 @@ class Event {
     $conn = null;
     
     return ( array ( "results" => $list, "totalRows" => count($events) ) );
+  }
+ 
+ 
+  /**
+  * Inserts the current Event object into the database, and sets its ID property.
+  * 
+  */ 
+  public function insert() {
+    
+    // Does the Event object already have an ID?
+    if ( !is_null( $this->id ) ) trigger_error ( "Event::insert(): Attempt to insert a Event object that already has its ID property set (to $this->id).", E_USER_ERROR );
+ 
+    // Insert the Event
+    $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    $sql = "INSERT INTO " . DB_PREFIX . "events ( title, description, eventDate, startTime, endTime, location, map, status, lastModified ) VALUES ( :title, :description, FROM_UNIXTIME(:eventDate), :startTime, :endTime, :location, :map, :status, FROM_UNIXTIME(:lastModified) )";
+    
+    $st = $conn->prepare ( $sql );
+    $st->bindValue( ":title", $this->title, PDO::PARAM_STR );
+    $st->bindValue( ":description", $this->description, PDO::PARAM_STR );
+    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_INT );
+    $st->bindValue( ":startTime", $this->startTime, PDO::PARAM_STR ); 
+    $st->bindValue( ":endTime", $this->endTime, PDO::PARAM_STR ); 
+    $st->bindValue( ":location", $this->location, PDO::PARAM_STR ); 
+    $st->bindValue( ":map", $this->map, PDO::PARAM_STR ); 
+    $st->bindValue( ":status", $this->status, PDO::PARAM_INT ); 
+    $st->bindValue( ":lastModified", $this->lastModified, PDO::PARAM_INT );
+    $st->execute();
+    
+    $this->id = $conn->lastInsertId();
+    
+    $conn = null;
+    
   }
   
   

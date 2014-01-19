@@ -101,9 +101,74 @@
             </div>
             <div class="tab-pane" id="newEventsTab">
               <form action="index.php?action=newEvent" method="post" name="newEvent" id="newEvent">
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>Title <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="title" name="title" autofocus required />
+                  </div>
+                </div>
+                <div class="row-fluid" style="margin-bottom:10px;">
+                  <div class="span8">
+                    <label>Description <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <textarea class="span12 ckeditor" id="description" name="description"></textarea>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>Date <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="eventDate" name="eventDate" />
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>Start <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="startTime" name="startTime" />
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>End <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="endTime" name="endTime" />
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>Location <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="location" name="location" />
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <label>Map <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
+                    <input class="span12" style="width:100%;" type="text" id="map" name="map" />
+                  </div>
+                </div>
+                <div class="row-fluid">&nbsp;</div>
+                <div class="row-fluid">
+                  <div class="span12">                           
+                    <input type="hidden" name="status" value="1" />
+                    <button class="btn btn-primary" type="submit" name="saveChanges">Save</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
+        </div>
+        <!-- Copy Modal -->
+        <div class="modal hide fade" id="copyModal">
+          <form action="index.php?action=copyEvent" method="post" id="copyEvent" name="copyEvent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">X</button>
+              <h3>Copy Event</h3>
+            </div>
+            <div class="modal-body" id="copy_modal_body">
+              <p>Select the dat that you wish to copy the event to... </p>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn" data-dismiss="modal">Close</a>
+              <button class="btn btn-primary" type="submit" name="saveChanges">Save Changes</button>
+            </div>
+          </form>
         </div>
       </div><!--/span-->
     </div><!--/row-->
