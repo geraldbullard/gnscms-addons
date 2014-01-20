@@ -103,7 +103,6 @@ class Event {
         $this->lastModified = mktime ( 0, 0, 0, $m, $d, $y );
       }
     }
-    
   }
  
  /**
