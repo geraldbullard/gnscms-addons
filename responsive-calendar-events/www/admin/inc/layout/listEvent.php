@@ -63,8 +63,8 @@
                     <td title="Event Title">
                       <?php echo $event->title; ?>
                     </td>
-                    <td title="Event Title">
-                      <?php echo date('Y-m-d', $event->eventDate); ?>
+                    <td title="Event Date">
+                      <?php echo $event->eventDate; ?>
                     </td>
                     <td class="hide-below-480 noDecoration">
                       <?php if ($event->status == 1) { ?>

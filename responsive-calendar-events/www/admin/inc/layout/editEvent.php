@@ -51,7 +51,7 @@
                   <div class="row-fluid">
                     <div class="span4">
                       <label>Date <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                      <input class="span12 datepicker" type="text" name="eventDate" value="<?php echo date( "Y-m-d", $results['event']->eventDate ); ?>" />
+                      <input class="span12 datepicker" type="text" name="eventDate" value="<?php echo $results['event']->eventDate; ?>" />
                     </div>
                   </div>
                   <div class="row-fluid">

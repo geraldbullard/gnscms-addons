@@ -22,7 +22,6 @@
           header( "Location: index.php?action=listEvent&error=eventNotFound" );
           return;
         }
-        $_POST['lastModified'] = date('Y-m-d');
         $event = new Event;
         $event->storeFormValues( $_POST );
         $event->update();

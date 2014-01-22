@@ -49,11 +49,6 @@ class Event {
   */
   public $status = null;
   
- /**
-  * @var date The event last modified date from the database
-  */
-  public $lastModified = null;
-  
  
  /**
   * Sets the object's properties using the values in the supplied array
@@ -65,13 +60,12 @@ class Event {
     if ( isset( $data['id'] ) ) $this->id = (int) $data['id'];
     if ( isset( $data['title'] ) ) $this->title = $data['title'];
     if ( isset( $data['description'] ) ) $this->description = $data['description'];
-    if ( isset( $data['eventDate'] ) ) $this->eventDate = (int) $data['eventDate'];
+    if ( isset( $data['eventDate'] ) ) $this->eventDate = $data['eventDate'];
     if ( isset( $data['startTime'] ) ) $this->startTime = $data['startTime'];
     if ( isset( $data['endTime'] ) ) $this->endTime = $data['endTime'];
     if ( isset( $data['location'] ) ) $this->location = $data['location'];
     if ( isset( $data['map'] ) ) $this->map = $data['map'];
     if ( isset( $data['status'] ) ) $this->status = (int) $data['status'];
-    if ( isset( $data['lastModified'] ) ) $this->lastModified = (int) $data['lastModified'];
     
   }
  
@@ -86,23 +80,6 @@ class Event {
     // Store all the parameters
     $this->__construct( $params );
     
-    // Parse and store the publication date
-    if ( isset($params['eventDate']) ) {
-      $eventDate = explode ( '-', $params['eventDate'] );
-      if ( count($eventDate) == 3 ) {
-        list ( $y, $m, $d ) = $eventDate;
-        $this->eventDate = mktime ( 0, 0, 0, $m, $d, $y );
-      }
-    }
-
-    // Parse and store the publication date
-    if ( isset($params['lastModified']) ) {
-      $lastModified = explode ( '-', $params['lastModified'] );
-      if ( count($lastModified) == 3 ) {
-        list ( $y, $m, $d ) = $lastModified;
-        $this->lastModified = mktime ( 0, 0, 0, $m, $d, $y );
-      }
-    }
   }
  
  /**
@@ -116,7 +93,7 @@ class Event {
     
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(eventDate) AS eventDate, UNIX_TIMESTAMP(lastModified) AS lastModified FROM " . DB_PREFIX . "events ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
+    $sql = "SELECT SQL_CALC_FOUND_ROWS *, eventDate AS eventDate, lastModified AS lastModified FROM " . DB_PREFIX . "events ORDER BY " . mysql_escape_string($order) . " LIMIT :numRows";
  
     $st = $conn->prepare( $sql );
     $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
@@ -150,7 +127,7 @@ class Event {
     
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $sql = "SELECT *, UNIX_TIMESTAMP(eventDate) AS eventDate, UNIX_TIMESTAMP(lastModified) AS lastModified FROM " . DB_PREFIX . "events WHERE id = :id";
+    $sql = "SELECT *, eventDate AS eventDate, lastModified AS lastModified FROM " . DB_PREFIX . "events WHERE id = :id";
     
     $st = $conn->prepare( $sql );
     $st->bindValue( ":id", $id, PDO::PARAM_INT );
@@ -176,18 +153,17 @@ class Event {
     // Insert the Event
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $sql = "INSERT INTO " . DB_PREFIX . "events ( title, description, eventDate, startTime, endTime, location, map, status, lastModified ) VALUES ( :title, :description, FROM_UNIXTIME(:eventDate), :startTime, :endTime, :location, :map, :status, FROM_UNIXTIME(:lastModified) )";
+    $sql = "INSERT INTO " . DB_PREFIX . "events ( title, description, eventDate, startTime, endTime, location, map, status, lastModified ) VALUES ( :title, :description, :eventDate, :startTime, :endTime, :location, :map, :status, now() )";
     
     $st = $conn->prepare ( $sql );
     $st->bindValue( ":title", $this->title, PDO::PARAM_STR );
     $st->bindValue( ":description", $this->description, PDO::PARAM_STR );
-    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_INT );
+    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_STR );
     $st->bindValue( ":startTime", $this->startTime, PDO::PARAM_STR ); 
     $st->bindValue( ":endTime", $this->endTime, PDO::PARAM_STR ); 
     $st->bindValue( ":location", $this->location, PDO::PARAM_STR ); 
     $st->bindValue( ":map", $this->map, PDO::PARAM_STR ); 
-    $st->bindValue( ":status", $this->status, PDO::PARAM_INT ); 
-    $st->bindValue( ":lastModified", $this->lastModified, PDO::PARAM_INT );
+    $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
     $st->execute();
     
     $this->id = $conn->lastInsertId();
@@ -202,26 +178,25 @@ class Event {
   * 
   */  
   public function update() {
- 
+    
     // Does the Event object have an ID?
     if ( is_null( $this->id ) ) trigger_error ( "Event::update(): Attempt to update an Event object that does not have its ID property set.", E_USER_ERROR );
     
     // Update the Content
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $sql = "UPDATE " . DB_PREFIX . "events SET title = :title, description = :description, eventDate = FROM_UNIXTIME(:eventDate), startTime = :startTime, endTime = :endTime, location = :location, map = :map, status = :status, lastModified = FROM_UNIXTIME(:lastModified) WHERE id = :id";
+    $sql = "UPDATE " . DB_PREFIX . "events SET title = :title, description = :description, eventDate = :eventDate, startTime = :startTime, endTime = :endTime, location = :location, map = :map, status = :status, lastModified = now() WHERE id = :id";
     
     $st = $conn->prepare ( $sql );
     $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
     $st->bindValue( ":title", $this->title, PDO::PARAM_STR ); 
     $st->bindValue( ":description", $this->description, PDO::PARAM_STR ); 
-    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_INT );
+    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_STR );
     $st->bindValue( ":startTime", $this->startTime, PDO::PARAM_STR );
     $st->bindValue( ":endTime", $this->endTime, PDO::PARAM_STR );
     $st->bindValue( ":location", $this->location, PDO::PARAM_STR );
     $st->bindValue( ":map", $this->map, PDO::PARAM_STR );
     $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
-    $st->bindValue( ":lastModified", $this->lastModified, PDO::PARAM_INT );
     $st->execute();
     
     $conn = null;
