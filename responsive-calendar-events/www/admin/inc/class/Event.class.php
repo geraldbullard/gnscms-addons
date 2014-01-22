@@ -141,13 +141,37 @@ class Event {
  
  
   /**
+  * Returns an Event object matching the given event ID
+  *
+  * @param int The event ID
+  * @return Event|false The Event object, or false if the record was not found or there was a problem
+  */ 
+  public static function getById( $id ) {
+    
+    $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    $sql = "SELECT *, UNIX_TIMESTAMP(eventDate) AS eventDate, UNIX_TIMESTAMP(lastModified) AS lastModified FROM " . DB_PREFIX . "events WHERE id = :id";
+    
+    $st = $conn->prepare( $sql );
+    $st->bindValue( ":id", $id, PDO::PARAM_INT );
+    $st->execute();
+    
+    $row = $st->fetch();
+    
+    $conn = null;
+    
+    if ( $row ) return new Event( $row );
+  }
+ 
+ 
+  /**
   * Inserts the current Event object into the database, and sets its ID property.
   * 
   */ 
   public function insert() {
     
     // Does the Event object already have an ID?
-    if ( !is_null( $this->id ) ) trigger_error ( "Event::insert(): Attempt to insert a Event object that already has its ID property set (to $this->id).", E_USER_ERROR );
+    if ( !is_null( $this->id ) ) trigger_error ( "Event::insert(): Attempt to insert an Event object that already has its ID property set (to $this->id).", E_USER_ERROR );
  
     // Insert the Event
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
@@ -171,25 +195,33 @@ class Event {
     $conn = null;
     
   }
-  
-  
+ 
+ 
   /**
-  * Updates the current Event status in the database.
+  * Updates the current Content object in the database.
   * 
   */  
-  public function updateStatus() {
-    
+  public function update() {
+ 
     // Does the Event object have an ID?
-    if ( is_null( $this->id ) ) trigger_error ( "Event::updateStatus(): Attempt to update the status of a Event object that does not have its ID property set.", E_USER_ERROR );
-   
-    // Update the Event
+    if ( is_null( $this->id ) ) trigger_error ( "Event::update(): Attempt to update an Event object that does not have its ID property set.", E_USER_ERROR );
+    
+    // Update the Content
     $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
     $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-    $sql = "UPDATE " . DB_PREFIX . "events SET status = :status WHERE id = :id";
+    $sql = "UPDATE " . DB_PREFIX . "events SET title = :title, description = :description, eventDate = FROM_UNIXTIME(:eventDate), startTime = :startTime, endTime = :endTime, location = :location, map = :map, status = :status, lastModified = FROM_UNIXTIME(:lastModified) WHERE id = :id";
     
     $st = $conn->prepare ( $sql );
     $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
+    $st->bindValue( ":title", $this->title, PDO::PARAM_STR ); 
+    $st->bindValue( ":description", $this->description, PDO::PARAM_STR ); 
+    $st->bindValue( ":eventDate", $this->eventDate, PDO::PARAM_INT );
+    $st->bindValue( ":startTime", $this->startTime, PDO::PARAM_STR );
+    $st->bindValue( ":endTime", $this->endTime, PDO::PARAM_STR );
+    $st->bindValue( ":location", $this->location, PDO::PARAM_STR );
+    $st->bindValue( ":map", $this->map, PDO::PARAM_STR );
     $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
+    $st->bindValue( ":lastModified", $this->lastModified, PDO::PARAM_INT );
     $st->execute();
     
     $conn = null;
@@ -212,6 +244,30 @@ class Event {
     $st = $conn->prepare ( "DELETE FROM " . DB_PREFIX . "events WHERE id = :id LIMIT 1" );
     
     $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
+    $st->execute();
+    
+    $conn = null;
+    
+  }
+  
+  
+  /**
+  * Updates the current Event status in the database.
+  * 
+  */  
+  public function updateStatus() {
+    
+    // Does the Event object have an ID?
+    if ( is_null( $this->id ) ) trigger_error ( "Event::updateStatus(): Attempt to update the status of a Event object that does not have its ID property set.", E_USER_ERROR );
+   
+    // Update the Event
+    $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD ); 
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+    $sql = "UPDATE " . DB_PREFIX . "events SET status = :status WHERE id = :id";
+    
+    $st = $conn->prepare ( $sql );
+    $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
+    $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
     $st->execute();
     
     $conn = null;

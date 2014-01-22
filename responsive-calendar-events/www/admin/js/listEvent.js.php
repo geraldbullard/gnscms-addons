@@ -45,9 +45,6 @@
         $("#info").load("updateSort.php?" + order);
       }
     });
-    //datepicker
     $('.datepicker').datepicker();
-    $('#startTime').timepicker();
-    $('#endTime').timepicker();
   });
 </script>

@@ -104,25 +104,25 @@
                 <div class="row-fluid">
                   <div class="span4">
                     <label>Title <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <input class="span12" type="text" id="title" name="title" autofocus required />
+                    <input class="span12" type="text" name="title" autofocus required />
                   </div>
                 </div>
                 <div class="row-fluid" style="margin-bottom:10px;">
                   <div class="span8">
                     <label>Description <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <textarea class="span12 ckeditor" id="description" name="description"></textarea>
+                    <textarea class="span12 ckeditor" name="description"></textarea>
                   </div>
                 </div>
                 <div class="row-fluid">
                   <div class="span4">
                     <label>Date <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <input class="span12 datepicker" type="text" id="eventDate" name="eventDate" />
+                    <input class="span12 datepicker" type="text" name="eventDate" />
                   </div>
                 </div>
                 <div class="row-fluid">
                   <div class="span4">
                     <label>Start <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <select class="span12" id="startTime" name="startTime">
+                    <select class="span12" name="startTime">
                       <option value="12:00 AM">12:00 AM</option>
                       <option value="12:15 AM">12:15 AM</option>
                       <option value="12:30 AM">12:30 AM</option>
@@ -225,7 +225,7 @@
                 <div class="row-fluid">
                   <div class="span4">
                     <label>End <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <select class="span12 hasTimepicker" type="text" id="endTime" name="endTime">
+                    <select class="span12 hasTimepicker" type="text" name="endTime">
                       <option value="12:00 AM">12:00 AM</option>
                       <option value="12:15 AM">12:15 AM</option>
                       <option value="12:30 AM">12:30 AM</option>
@@ -328,13 +328,13 @@
                 <div class="row-fluid">
                   <div class="span4">
                     <label>Location <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <input class="span12" type="text" id="location" name="location" />
+                    <input class="span12" type="text" name="location" />
                   </div>
                 </div>
                 <div class="row-fluid">
                   <div class="span4">
                     <label>Map <i class="icon-info-sign" data-rel="popover" data-content="And here's some amazing content. It's very engaging. right?" title="A Title"></i></label>
-                    <input class="span12" type="text" id="map" name="map" />
+                    <input class="span12" type="text" name="map" />
                   </div>
                 </div>
                 <div class="row-fluid">&nbsp;</div>
