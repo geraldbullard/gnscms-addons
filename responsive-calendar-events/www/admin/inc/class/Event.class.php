@@ -79,6 +79,14 @@ class Event {
     
     // Store all the parameters
     $this->__construct( $params );
+
+    // Parse and store the event date
+    if ( isset($params['eventDate']) ) {
+      $lastModified = explode ( '/', $params['eventDate'] );
+      if ( count($lastModified) == 3 ) {
+        $this->eventDate = $lastModified[2] . '-' . $lastModified[0] . '-' . $lastModified[1];
+      }
+    }
     
   }
  
