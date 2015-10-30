@@ -4,7 +4,7 @@
   
   $eventsTableExists = (mysql_num_rows(mysql_query("SHOW COLUMNS FROM " . DB_PREFIX . "groups LIKE 'events'"))) ? true : false;
   if ($eventsTableExists !== true) {
-    mysql_query("ALTER TABLE " . DB_PREFIX . "_groups ADD events TINYINT(1) UNSIGNED NOT NULL DEFAULT '1'");
+    mysql_query("ALTER TABLE " . DB_PREFIX . "groups ADD events TINYINT(1) UNSIGNED NOT NULL DEFAULT '1'");
   }
   
   require_once('inc/class/Event.class.php');

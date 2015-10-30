@@ -172,7 +172,7 @@ class Event {
     $st->bindValue( ":location", $this->location, PDO::PARAM_STR ); 
     $st->bindValue( ":map", $this->map, PDO::PARAM_STR ); 
     $st->bindValue( ":status", $this->status, PDO::PARAM_INT );
-    $st->execute();
+    $st->execute(); 
     
     $this->id = $conn->lastInsertId();
     

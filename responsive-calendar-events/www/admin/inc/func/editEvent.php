@@ -36,6 +36,8 @@
         }
         // User has not submitted the event edit form: display the form
         $results['event'] = Event::getById( (int)$_GET['editId'] );
+        $dateParts = explode("-", $results['event']->eventDate);
+        $results['event']->eventDate = $dateParts[1] . "/" . $dateParts[2] . "/" . $dateParts[0];
         require( "inc/layout/editEvent.php" );
       }
     } else {
